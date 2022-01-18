@@ -109,4 +109,120 @@ $ curl -s http://localhost:53653/data | jq
 
 You can also install shfz on your local machine and run fuzzing, but we recommend integrating shfz into CI.
 
-TBD
+### Github Actions
+
+[A example workflow](https://github.com/shfz/demo-webapp/blob/main/.github/workflows/fuzzing.yml)
+
+1. Create fuzzing scenario in `/fuzz` directory.
+
+<https://github.com/shfz/demo-webapp/tree/main/fuzz>
+
+```yml
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: setup fuzzing scenario
+        run: |
+          cd fuzz
+          npm i
+          ./node_modules/typescript/bin/tsc scenario.ts
+          file scenario.js
+```
+
+2. Setup webapp (by docker-compose).
+
+```yml
+      - name: setup webapp
+        run: |
+          docker-compose build
+          docker-compose up -d
+          docker-compose ps -a
+```
+
+> If this webapp is created by Python Flask, install [shfz/shfz-flask](https://github.com/shfz/shfz-flask)
+>
+> Note.
+>
+> If you use docker-compose to launch the webapp on Linux, you need to enable host.docker.internal.
+>
+> ```yml
+>     extra_hosts:
+>       - "host.docker.internal:host-gateway"
+> ```
+>
+> And shfztrace is initialised by `fuzzUrl="http://host.docker.internal:53653"`
+>
+> ```python
+> from flask import *
+> from shfzflask import shfztrace
+>
+> app = Flask(__name__)
+> shfztrace(app, fuzzUrl="http://host.docker.internal:53653")
+> ```
+
+3. Setup shfz
+
+```yml
+      - name: setup shfz
+        run: |
+          wget https://github.com/shfz/shfz/releases/download/v0.0.2/shfz_0.0.2_linux_amd64.tar.gz
+          tar -zxvf shfz_0.0.2_linux_amd64.tar.gz
+          sudo chmod +x shfz
+          ./shfz --help
+```
+
+4. Run fuzzzing
+
+```yml
+      - name: run shfz server
+        run: ./shfz server &
+
+      - name: run fuzzing
+        run: ./shfz run -f fuzz/scenario.js -n 100
+```
+
+4. (GitHub Actions) Report result in Issue
+
+```yml
+      - name: export fuzzing report
+        run: >
+          curl
+          -F "hash=${{ github.sha }}"
+          -F "repo=${{ github.repository }}"
+          -F "id=${{ github.run_id }}"
+          -F "job=${{ github.job }}"
+          -F "number=${{ github.run_number }}"
+          -F "path=/app"
+          http://localhost:53653/report > report.md
+      - name: create issue
+        uses: peter-evans/create-issue-from-file@v3
+        with:
+          title: shfz result
+          content-filepath: ./report.md
+          labels: |
+            shfz
+```
+
+5. Export fuzzing data
+
+```yml
+      - name: export fuzzing data
+        run: curl http://localhost:53653/data > result.json
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: result.json
+          path: ./result.json
+```
+
+6. Export application log
+
+```yml
+      - name: export application log
+        run: docker logs demo-webapp_app_1 > app.log
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app.log
+          path: ./app.log
+```
