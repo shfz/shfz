@@ -77,9 +77,10 @@ type ReportServerError struct {
 
 // Markdown出力リクエスト
 type ReportReq struct {
-	Hash   string `form:"hash"`
-	Repo   string `form:"repo"`
-	RunID  string `form:"id"`
-	Job    string `form:"job"`
-	Number string `form:"number"`
+	Hash   string `form:"hash"`   // Git Commit Hash
+	Repo   string `form:"repo"`   // Repository ex. shfz/demo-webapp
+	RunID  string `form:"id"`     // Actions ID
+	Job    string `form:"job"`    // ACtions Job Name
+	Number string `form:"number"` // Actions Job Number
+	Path   string `form:"path"`   // Webapp root path ex. /app
 }

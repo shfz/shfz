@@ -261,7 +261,7 @@ func GenReport(param model.ReportReq) (string, error) {
 				}
 			}
 			res += fmt.Sprintf("> `%s` is detected at `%s` Line %d in `%s` function.\n", j.ServerError, j.ServerErrorFile, j.ServerErrorLineNo, j.ServerErrorFunc)
-			res += fmt.Sprintf("> https://github.com/%s/blob/%s%s#L%d\n", param.Repo, param.Hash, j.ServerErrorFile, j.ServerErrorLineNo)
+			res += fmt.Sprintf("> https://github.com/%s/blob/%s%s%s#L%d\n", param.Repo, param.Hash, param.Path, j.ServerErrorFile, j.ServerErrorLineNo)
 		}
 	}
 	res += "---\n"

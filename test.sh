@@ -29,4 +29,4 @@ curl -X POST http://localhost:53653/server/1111 -H "Content-Type: application/js
 
 http --check-status --ignore-stdin --timeout=2.5 "http://localhost:53653/data"
 
-curl -F "hash=130d678cdc70fd679ce8e565ccdbac8c12f92098" -F "repo=shfz/shfz" -F "id=1587495459" -F "job=shfz" -F "number=5" http://localhost:53653/report
+curl -F "hash=130d678cdc70fd679ce8e565ccdbac8c12f92098" -F "repo=shfz/shfz" -F "id=1587495459" -F "job=shfz" -F "number=5" -F "path=/app" http://localhost:53653/report
