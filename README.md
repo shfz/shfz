@@ -19,7 +19,7 @@
 
 <h1 align="center">shfz</h1>
 
-A scenario-based web application fuzzng tool that supports fuzz generation by genetic algorithms.
+A scenario-based web application fuzzng tool that supports fuzz generation by genetic algorithm.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/shfz/shfz/main/image/shfz.jpg" />
@@ -31,11 +31,11 @@ A scenario-based web application fuzzng tool that supports fuzz generation by ge
 
 ## Features
 
-- **Easy to customize** fuzzing test for web applications by scripting fuzzing scenario in JavaScript / TypeScript
+- **Easy to customize** fuzzing test by scripting fuzzing scenario in JavaScript / TypeScript
 - **Third-party packages** can be used in fuzzing scenario script
-- **Genetic algorithms** fuzz generation can be used to efficiently increase code coverage
-- **High affinity with CI**, such as GitHub Actions
-- **Automatic error detection** helps fix bugs
+- **Genetic algorithm** fuzz generation increases code coverage
+- **High affinity with CI**, automatically post a report to GitHub issue
+- tracer's **Automatic error detection** helps fix bugs
 
 ## Install
 
@@ -52,19 +52,33 @@ $ sudo chmod +x /usr/local/bin/shfz
 
 ## Usage
 
+1. Create scenario
+
 To run fuzzing test with this tool, you need to create a scenario (that calls http requests for the web application, with automatically embeds the fuzz in the request parameter such as `username`, `password`).
 
 Please refer to [shfz/shfzlib](https://github.com/shfz/shfzlib) for how to script scenarios.
 
-And for Fuzzing generation by genetic algorithm, it is necessary to install the trace library in the web application.
+2. Install tracer to web application (only Flask)
 
-Currently, the trace library is only compatible with Python Flask. (supported frameworks will be expanded in the future)
+For genetic algorithm fuzz generation and automatic error detection, it is necessary to install the trace library [shfz/shfz-flask](https://github.com/shfz/shfz-flask) in the web application.
 
-If the web application to be fuzzed uses flask, please install [shfz/shfz-flask](https://github.com/shfz/shfz-flask).
+*Currently, the trace library is only compatible with Python Flask. (supported frameworks will be expanded in the future)*
 
-### server
+3. shfz server
 
-In order to aggregate the results of fuzzing or generate fuzz by the genetic algorithm, it is necessary to start the server.
+check [Server](#Server)
+
+4. shfz run
+
+check [Run](#Run)
+
+5. Get result
+
+check [Result](#Result)
+
+### Server
+
+In order to aggregate the results of fuzzing or generate fuzz by genetic algorithm, it is necessary to start the server.
 
 ```
 $ shfz server
@@ -72,33 +86,15 @@ $ shfz server
 
 By default, the http server starts on port `53653` on localhost.
 
-And you can get the saved fuzz data from the `/data` endpoints.
+*This server interacts with scenario and tracer to collect fuzz and frame graph data and supports fuzz generation with genetic algorithms.*
 
-```
-$ curl -s http://localhost:53653/data | jq
-
-{
-  "status": [
-    {
-      "name": "login",
-      "UsedFuzzs": [
-        {
-          "id": "0000",
-          "fuzz": [
-            {
-              "name": "user",
-              "text": "abcabc"
-            }
-          ],
-...
-```
-
-### run
+### Run
 
 After setting up the server, specify the scenario file in another terminal and execute fuzzing.
 
 ```
 $ shfz run -f scenario.js -n 100 -p 3 -t 30
+[+] Finish
 ```
 
 > #### options
@@ -107,6 +103,8 @@ $ shfz run -f scenario.js -n 100 -p 3 -t 30
 > - `-n`, `--number` total number of executions (default 1)
 > - `-p`, `--parallel` number of parallel executions (default 1)
 > - `-t`, `--timeout` scenario execution timeout(seconds) (default 30)
+
+### Result
 
 You can get the result by sending a request to the server's the `/data` endpoints during or after fuzzing.
 
@@ -131,11 +129,11 @@ $ curl -s http://localhost:53653/data | jq
 
 ## CI integration
 
-You can also install shfz on your local machine and run fuzzing, but we recommend integrating shfz into CI.
+You can also install shfz on your local machine and run fuzzing, but we recommend run shfz on CI.
 
 ### Github Actions
 
-[A example workflow](https://github.com/shfz/demo-webapp/blob/main/.github/workflows/fuzzing.yml)
+check [demo-webapp](https://github.com/shfz/demo-webapp)'s [fuzzing workflow](https://github.com/shfz/demo-webapp/blob/main/.github/workflows/fuzzing.yml)
 
 1. Create fuzzing scenario in `/fuzz` directory.
 
@@ -227,7 +225,7 @@ You can also install shfz on your local machine and run fuzzing, but we recommen
             shfz
 ```
 
-5. Export fuzzing data
+5. Export fuzzing data to Actions Artifacts
 
 ```yml
       - name: export fuzzing data
@@ -239,7 +237,7 @@ You can also install shfz on your local machine and run fuzzing, but we recommen
           path: ./result.json
 ```
 
-6. Export application log
+6. Export application log to Actions Artifacts
 
 ```yml
       - name: export application log
