@@ -21,6 +21,10 @@
 
 A scenario-based web application fuzzng tool that supports fuzz generation by genetic algorithms.
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/shfz/shfz/main/image/shfz.jpg" />
+</p>
+
 ## Features
 
 - **Easy to customize** fuzzing test for web applications by scripting fuzzing scenario in JavaScript / TypeScript
