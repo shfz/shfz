@@ -1,8 +1,13 @@
-# shfz
-
 <p align="center">
   <img src="https://avatars.githubusercontent.com/u/89079069?s=200" />
 </p>
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/shfz/shfz/goreleaser)
+![GitHub](https://img.shields.io/github/license/shfz/shfz)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/shfz/shfz)
+![GitHub all releases](https://img.shields.io/github/downloads/shfz/shfz/total)
+
+<h2 align="center">shfz</h2>
 
 A scenario-based web application fuzzng tool that supports fuzz generation by genetic algorithms.
 
