@@ -2,10 +2,20 @@
   <img src="https://avatars.githubusercontent.com/u/89079069?s=200" />
 </p>
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/shfz/shfz/goreleaser)
-![GitHub](https://img.shields.io/github/license/shfz/shfz)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/shfz/shfz)
-![GitHub all releases](https://img.shields.io/github/downloads/shfz/shfz/total)
+<p align="center">
+  <a href="https://github.com/shfz/shfz/releases">
+    <img src="https://img.shields.io/github/workflow/status/shfz/shfz/goreleaser" alt="GitHub Workflow Status">
+  </a>
+    <a href="https://github.com/shfz/shfz/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/shfz/shfz" alt="license">
+  </a>
+    <a href="https://github.com/shfz/shfz/releases">
+    <img src="https://img.shields.io/github/v/release/shfz/shfz" alt="release">
+  </a>
+    <a href="https://github.com/shfz/shfz/releases">
+    <img src="https://img.shields.io/github/downloads/shfz/shfz/total" alt="downloads">
+  </a>
+</p>
 
 <h2 align="center">shfz</h2>
 
