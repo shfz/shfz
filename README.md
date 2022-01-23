@@ -17,7 +17,7 @@
   </a>
 </p>
 
-<h2 align="center">shfz</h2>
+<h1 align="center">shfz</h1>
 
 A scenario-based web application fuzzng tool that supports fuzz generation by genetic algorithms.
 
