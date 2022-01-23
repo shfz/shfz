@@ -35,6 +35,7 @@ A scenario-based web application fuzzng tool that supports fuzz generation by ge
 - **Third-party packages** can be used in fuzzing scenario script
 - **Genetic algorithms** fuzz generation can be used to efficiently increase code coverage
 - **High affinity with CI**, such as GitHub Actions
+- **Automatic error detection** helps fix bugs
 
 ## Install
 
