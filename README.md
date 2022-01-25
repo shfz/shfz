@@ -248,3 +248,7 @@ check [demo-webapp](https://github.com/shfz/demo-webapp)'s [fuzzing workflow](ht
           name: app.log
           path: ./app.log
 ```
+
+---
+
+image: [Flaticon.com](https://www.flaticon.com/)
