@@ -44,7 +44,7 @@ Download binary from [Releases](https://github.com/shfz/shfz/releases) page, or 
 #### Linux (amd64)
 
 ```
-$ curl -Lo shfz.tar.gz https://github.com/shfz/shfz/releases/download/v0.0.1/shfz_0.0.1_linux_amd64.tar.gz
+$ curl -Lo shfz.tar.gz https://github.com/shfz/shfz/releases/download/v0.0.2/shfz_0.0.2_linux_amd64.tar.gz
 $ tar -zxvf shfz.tar.gz
 $ sudo mv shfz /usr/local/bin/
 $ sudo chmod +x /usr/local/bin/shfz
