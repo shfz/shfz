@@ -182,59 +182,29 @@ check [demo-webapp](https://github.com/shfz/demo-webapp)'s [fuzzing workflow](ht
 > shfztrace(app, fuzzUrl="http://host.docker.internal:53653")
 > ```
 
-3. Setup shfz
+3. Setup and run shfz
+
+use [shfz-actions-setup](https://github.com/shfz/shfz-actions-setup)
 
 ```yml
-      - name: setup shfz
-        run: |
-          wget https://github.com/shfz/shfz/releases/download/v0.0.2/shfz_0.0.2_linux_amd64.tar.gz
-          tar -zxvf shfz_0.0.2_linux_amd64.tar.gz
-          sudo chmod +x shfz
-          ./shfz --help
-```
-
-4. Run fuzzzing
-
-```yml
-      - name: run shfz server
-        run: ./shfz server &
+      - name: SHFZ setup
+        uses: shfz/shfz-actions-setup@v0.0.3
+        with:
+          version: "0.0.2"
 
       - name: run fuzzing
-        run: ./shfz run -f fuzz/scenario.js -n 100
+        run: shfz run -f fuzz/scenario.js -n 100
 ```
 
-4. (GitHub Actions) Report result in Issue
+4. Report result in Issue & Export fuzzing data to Actions Artifacts
+
+use [shfz-actions-setup](https://github.com/shfz/shfz-actions-report)
 
 ```yml
-      - name: export fuzzing report
-        run: >
-          curl
-          -F "hash=${{ github.sha }}"
-          -F "repo=${{ github.repository }}"
-          -F "id=${{ github.run_id }}"
-          -F "job=${{ github.job }}"
-          -F "number=${{ github.run_number }}"
-          -F "path=/app"
-          http://localhost:53653/report > report.md
-      - name: create issue
-        uses: peter-evans/create-issue-from-file@v3
+      - name: SHFZ report
+        uses: shfz/shfz-actions-report@v0.0.2
         with:
-          title: shfz result
-          content-filepath: ./report.md
-          labels: |
-            shfz
-```
-
-5. Export fuzzing data to Actions Artifacts
-
-```yml
-      - name: export fuzzing data
-        run: curl http://localhost:53653/data > result.json
-      - name: upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: result.json
-          path: ./result.json
+          path: "/app"
 ```
 
 6. Export application log to Actions Artifacts
