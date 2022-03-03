@@ -207,7 +207,7 @@ use [shfz-actions-setup](https://github.com/shfz/shfz-actions-report)
           path: "/app"
 ```
 
-6. Export application log to Actions Artifacts
+5. (Optional) Export application log to Actions Artifacts
 
 ```yml
       - name: export application log
