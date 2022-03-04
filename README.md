@@ -44,7 +44,7 @@ Download binary from [Releases](https://github.com/shfz/shfz/releases) page, or 
 #### Linux (amd64)
 
 ```
-$ curl -Lo shfz.tar.gz https://github.com/shfz/shfz/releases/download/v0.0.2/shfz_0.0.2_linux_amd64.tar.gz
+$ curl -Lo shfz.tar.gz https://github.com/shfz/shfz/releases/download/v0.0.3/shfz_0.0.3_linux_amd64.tar.gz
 $ tar -zxvf shfz.tar.gz
 $ sudo mv shfz /usr/local/bin/
 $ sudo chmod +x /usr/local/bin/shfz
@@ -190,7 +190,7 @@ use [shfz-actions-setup](https://github.com/shfz/shfz-actions-setup)
       - name: SHFZ setup
         uses: shfz/shfz-actions-setup@v0.0.3
         with:
-          version: "0.0.2"
+          version: "0.0.3"
 
       - name: run fuzzing
         run: shfz run -f fuzz/scenario.js -n 100
