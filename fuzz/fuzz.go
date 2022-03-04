@@ -1,3 +1,7 @@
+/*
+Copyright © 2022 shfz
+
+*/
 package fuzz
 
 import (
